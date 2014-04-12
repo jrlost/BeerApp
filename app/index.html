@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" ng-app="beerApp">
+<head>
+  <meta charset="utf-8">
+  <title>Beer</title>
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/directives.js"></script>
+</head>
+<body ng-controller="beerTestCtrl">
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span10">
+      	<canvas drawing items="appData.setup"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <img class="equipment pumps" ng-repeat="pump in appData.setup.pumps" ng-src="{{pump.img}}" style="top:{{pump.position.top}}px;left:{{pump.position.left}}px;" />
+  <img class="equipment heaters" ng-repeat="heater in appData.setup.heaters" ng-src="{{heater.img}}" style="top:{{heater.position.top}}px;left:{{heater.position.left}}px;" />
+  <img class="equipment valves" ng-repeat="valve in appData.setup.valves" ng-src="{{valve.img}}" ng-show="!valve.manual" style="top:{{valve.position.top}}px;left:{{valve.position.left}}px;" />
+
+</body>
+</html>

@@ -6,4 +6,5 @@ body {
 
 .equipment {
 	position:absolute;
+	cursor:pointer;
 }

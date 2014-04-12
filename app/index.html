@@ -8,6 +8,7 @@
   <script src="../bower_components/angular/angular.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/directives.js"></script>
+  <script src="js/app.js"></script>
 </head>
 <body ng-controller="beerTestCtrl">
 
@@ -19,9 +20,9 @@
     </div>
   </div>
 
-  <img class="equipment pumps" ng-repeat="pump in appData.setup.pumps" ng-src="{{pump.img}}" style="top:{{pump.position.top}}px;left:{{pump.position.left}}px;" />
-  <img class="equipment heaters" ng-repeat="heater in appData.setup.heaters" ng-src="{{heater.img}}" style="top:{{heater.position.top}}px;left:{{heater.position.left}}px;" />
-  <img class="equipment valves" ng-repeat="valve in appData.setup.valves" ng-src="{{valve.img}}" ng-show="!valve.manual" style="top:{{valve.position.top}}px;left:{{valve.position.left}}px;" />
+  <img class="equipment pumps" ng-repeat="pump in appData.setup.pumps" ng-src="{{equipmentImg('pump',pump)}}" style="top:{{pump.position.top}}px;left:{{pump.position.left}}px;" ng-click="toggleEquipment('pump',pump);" />
+  <img class="equipment heaters" ng-repeat="heater in appData.setup.heaters" ng-src="{{equipmentImg('heater',heater)}}" style="top:{{heater.position.top}}px;left:{{heater.position.left}}px;" ng-click="toggleEquipment('heater',heater);" />
+  <img class="equipment valves" ng-repeat="valve in appData.setup.valves" ng-src="{{equipmentImg('valve',valve)}}" ng-show="!valve.manual" style="top:{{valve.position.top}}px;left:{{valve.position.left}}px;" ng-click="toggleEquipment('valve',valve);" />
 
 </body>
 </html>

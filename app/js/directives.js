@@ -68,7 +68,7 @@ beerApp.directive("drawing", ['$timeout', function($timeout){
 				angular.forEach(scope.items.plumbing, function(plumbing, index){
 					console.log(plumbing);
 					ctx.beginPath();
-					ctx.strokeStyle = plumbing.active ? "#2E2" : "#AAA";
+					ctx.strokeStyle = plumbing.active ? "#007F0E" : "#AAA";
 					angular.forEach(plumbing.points, function(point, index){
 						if(index==0) {
 							ctx.moveTo(point.x,point.y);

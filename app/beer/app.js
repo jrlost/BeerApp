@@ -150,9 +150,14 @@
         ],
         "pumps": [
             {
+                "id": 1,
                 "name": "pump 1",
-                "img": "img/pumps/pump-default.png",
+                "img": {
+                    "default": "img/pumps/pump-default.png",
+                    "on": "img/pumps/pump-default-on.png"
+                },
                 "desc": "feeds HLT/MLT",
+                "active": false,
                 "dependencies": {
                     "steps": [
                         2,
@@ -169,9 +174,14 @@
                 }
             },
             {
+                "id": 2,
                 "name": "pump 2",
-                "img": "img/pumps/pump-default.png",
+                "img": {
+                    "default": "img/pumps/pump-default.png",
+                    "on": "img/pumps/pump-default-on.png"
+                },
                 "desc": "feeds BK",
+                "active": false,
                 "dependencies": {
                     "steps": [
                         5
@@ -188,9 +198,14 @@
         ],
         "valves": [
             {
+                "id": 1,
                 "name": "valve 1",
                 "type": 2,
-                "img": "img/valves/auto-valve-2-way.png",
+                "active": true,
+                "img": {
+                    "default": "img/valves/auto-valve.png",
+                    "open": "img/valves/auto-valve-2-way.png"
+                },
                 "desc": "control input into system",
                 "manual": false,
                 "position": {
@@ -199,9 +214,16 @@
                 }
             },
             {
+                "id": 2,
                 "name": "valve 2",
                 "type": 3,
-                "img": "img/valves/auto-valve-3-way.png",
+                "active": true,
+                "direction": "left",
+                "img": {
+                    "default": "img/valves/auto-valve.png",
+                    "left": "img/valves/HLT-auto-valve-3-way-left.png",
+                    "right": "img/valves/HLT-auto-valve-3-way-right.png"
+                },
                 "desc": "control input to HLT/Valve 3",
                 "manual": false,
                 "position": {
@@ -210,9 +232,16 @@
                 }
             },
             {
+                "id": 3,
                 "name": "valve 3",
                 "type": 3,
-                "img": "img/valves/auto-valve-3-way.png",
+                "active": false,
+                "direction": "left",
+                "img": {
+                    "default": "img/valves/auto-valve.png",
+                    "left": "img/valves/MLT-auto-valve-3-way-left.png",
+                    "right": "img/valves/MLT-auto-valve-3-way-right.png"
+                },
                 "desc": "control input into pump1",
                 "manual": false,
                 "position": {
@@ -221,9 +250,14 @@
                 }
             },
             {
+                "id": 4,
                 "name": "valve 4",
                 "type": 2,
-                "img": "img/valves/auto-valve-2-way.png",
+                "active": false,
+                "img": {
+                    "default": "img/valves/auto-valve.png",
+                    "open": "img/valves/auto-valve-2-way.png"
+                },
                 "desc": "control input into pump2",
                 "manual": false,
                 "position": {
@@ -232,6 +266,7 @@
                 }
             },
             {
+                "id": 5,
                 "name": "valve 5",
                 "type": 2,
                 "img": "img/valves/manual-valve-2-way.png",
@@ -243,6 +278,7 @@
                 }
             },
             {
+                "id": 6,
                 "name": "valve 6",
                 "type": 2,
                 "img": "img/valves/manual-valve-2-way.png",
@@ -259,8 +295,11 @@
                 "id": 1,
                 "name": "burner 1",
                 "desc": "heats HLT and MLT via HERMS",
-                "img": "img/heaters/heater-default.png",
-                "state": "on",
+                "img": {
+                    "default": "img/heaters/heater-default.png",
+                    "on": "img/heaters/heater-default-on.png"
+                },
+                "active": false,
                 "position": {
                     "left": 59,
                     "top": 248
@@ -270,8 +309,11 @@
                 "id": 2,
                 "name": "burner 2",
                 "desc": "heats BK directly",
-                "img": "img/heaters/heater-default.png",
-                "state": "off",
+                "img": {
+                    "default": "img/heaters/heater-default.png",
+                    "on": "img/heaters/heater-default-on.png"
+                },
+                "active": false,
                 "position": {
                     "left": 625,
                     "top": 248
@@ -284,7 +326,7 @@
                 "name": "the brick",
                 "desc": "plate chiller",
                 "img": "img/coolers/plate-chiller.png",
-                "state": "off",
+                "active": false,
                 "position": {
                     "left": 614,
                     "top": 278

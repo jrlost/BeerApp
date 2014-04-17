@@ -8,3 +8,37 @@ body {
 	position:absolute;
 	cursor:pointer;
 }
+.tempRange {
+    position:absolute;
+    border: 1px solid #ccc;
+    padding: 3px;
+}
+.tempRange input {
+    width:3em;
+}
+.tempRange span {
+    display:block;
+}
+.tempRange>span:first-child {
+    border-bottom:1px solid black;
+}
+input[type=range].vVertical {
+    -webkit-appearance: none;
+    background-color: #888;
+    width: 200px;
+    height:5px;
+    -webkit-transform:rotate(270deg);       
+    -moz-transform:rotate(270deg);
+    -o-transform:rotate(270deg);
+    -ms-transform:rotate(270deg);
+    transform:rotate(270deg);
+    z-index: 0;
+    position:absolute;
+    margin-left:-100px;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #444;
+    width: 10px;
+    height: 10px;
+}

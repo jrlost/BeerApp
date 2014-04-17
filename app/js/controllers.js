@@ -1,12 +1,9 @@
 'use strict';
 
 /* Controllers */
-
-var beerApp = angular.module('beerApp', []);
-
-beerApp.controller('beerTestCtrl', function($scope, $http) {
-  $http.get('beer/app.js').success(function(data) {
-    $scope.appData = data;
+beerApp.controller('beerTestCtrl', ['$scope', 'beerRepository', function($scope, beerRepository) {
+  beerRepository.getSetup(function(results) {
+    $scope.appData = results;
   });
 
   $scope.toggleEquipment = function(equipmentType, equipment) {
@@ -53,4 +50,14 @@ beerApp.controller('beerTestCtrl', function($scope, $http) {
   	}
   	return equipment.img;
   }
-});
+
+  $scope.updateTargetVolume = function(equipment) {
+    console.log(equipment.volume);
+  }
+
+  $scope.editTargetTemp = function(equipment) {
+    equipment.temp.previousTarget = equipment.temp.target;
+    equipment.editing = true;
+    console.log(equipment.temp.previousTarget);
+  }
+}]);

@@ -1,13 +1,11 @@
 'use strict';
 
 /* Directives */
-
 beerApp.directive("drawing", ['$timeout', function($timeout){
 	return {
 		restrict: "A",
 		scope: {
 			items: '=',
-
 		},
 		controller: 'beerTestCtrl',
 		link: function(scope, element, attrs){
@@ -17,7 +15,7 @@ beerApp.directive("drawing", ['$timeout', function($timeout){
 
 				//Draw kettles
 				angular.forEach(scope.items.vessels, function(vessel, index){
-					console.log(vessel);
+					//console.log(vessel);
 					var imageObj = new Image();
 					imageObj.onload = function() {
 						ctx.drawImage(imageObj, vessel.position.left, vessel.position.top);
@@ -36,7 +34,7 @@ beerApp.directive("drawing", ['$timeout', function($timeout){
 
 				//Draw coolers
 				angular.forEach(scope.items.coolers, function(cooler, index){
-					console.log(cooler);
+					//console.log(cooler);
 					var imageObj = new Image();
 					imageObj.onload = function() {
 						ctx.drawImage(imageObj, cooler.position.left, cooler.position.top);
@@ -47,7 +45,7 @@ beerApp.directive("drawing", ['$timeout', function($timeout){
 				//Draw manual valves
 				angular.forEach(scope.items.valves, function(valve, index){
 					if(valve.manual) {
-						console.log(valve);
+						//console.log(valve);
 						var imageObj = new Image();
 						imageObj.onload = function() {
 							ctx.drawImage(imageObj, valve.position.left, valve.position.top);
@@ -66,9 +64,9 @@ beerApp.directive("drawing", ['$timeout', function($timeout){
 
 				//Draw plumbing
 				angular.forEach(scope.items.plumbing, function(plumbing, index){
-					console.log(plumbing);
+					//console.log(plumbing);
 					ctx.beginPath();
-					ctx.strokeStyle = plumbing.active ? "#007F0E" : "#AAA";
+					ctx.strokeStyle = plumbing.active || activeTube(plumbing.id) ? "#007F0E" : "#AAA";
 					angular.forEach(plumbing.points, function(point, index){
 						if(index==0) {
 							ctx.moveTo(point.x,point.y);
@@ -110,7 +108,7 @@ beerApp.directive("drawing", ['$timeout', function($timeout){
 				if (newVal!=oldVal) {
 					reset();
 				}
-			});
+			}, true);
 
 			// canvas reset
 			function reset(){
@@ -119,6 +117,110 @@ beerApp.directive("drawing", ['$timeout', function($timeout){
                 element[0].height = window.innerHeight-200;
 				buildCanvas();
 			}
+
+			function activeTube(id) {
+				var active = false;
+				for (var i=0 ; i<=scope.items.valves.length - 1; i++) {
+					var valve = scope.items.valves[i];
+
+					if(valve.active) {
+						if(valve.type==2) {
+							active = (valve.plumbing.open.indexOf(id) > -1);
+						} else {
+							active = (valve.plumbing[valve.direction].indexOf(id) > -1);
+						}
+
+						if(active && valve.plumbing.dependencies && valve.plumbing.dependencies[valve.direction]) {
+							var vs = null;
+							angular.forEach(valve.plumbing.dependencies[valve.direction], function(value) {
+								vs = getEquipmentId(scope.items.valves, value.id);
+								active &= vs.active && vs.direction==value.direction;
+							});
+						}
+
+						if(active) {
+							break;
+						}
+					}
+				}
+				return active;
+			}
+
+			function getEquipmentId(equipment, id) {
+				for (var i=0 ; i<=equipment.length - 1; i++) {
+					if(equipment[i].id==id) {
+						return equipment[i];
+					}
+				}
+			}
 		}
 	};
-}]);
+}]).directive('ngEsc', function() {
+  return function(scope, elm, attr) {
+    elm.bind('keydown', function(e) {
+      if (e.keyCode === 27) {
+        scope.$apply(attr.ngEsc);
+      }
+    });
+  };
+}).directive('ngEnter', function() {
+  return function(scope, elm, attr) {
+    elm.bind('keypress', function(e) {
+      if (e.keyCode === 13) {
+        scope.$apply(attr.ngEnter);
+      }
+    });
+  };
+}).directive('ngAdjustup', function() {
+  return function(scope, elm, attr) {
+    elm.bind('keydown', function(e) {
+      if (e.keyCode === 38) {
+        scope.$apply(attr.ngAdjustup);
+      }
+    });
+  };
+}).directive('ngAdjustdown', function() {
+  return function(scope, elm, attr) {
+    elm.bind('keydown', function(e) {
+      if (e.keyCode === 40) {
+        scope.$apply(attr.ngAdjustdown);
+      }
+    });
+  };
+}).directive('ngInlineTemp', function($timeout) {
+  return {
+    scope: {
+      model: '=ngInlineTemp'
+    },
+    link: function(scope, elm, attr) {
+      var previousValue;
+      scope.edit = function() {
+        scope.editing = true;
+        previousValue = scope.model;
+        $timeout(function() {elm.find('input')[0].focus();}, 0, false);
+      };
+      scope.save = function() {
+        scope.editing = false;
+        scope.model = scope.model.toString().replace(/[^0-9.]/g,'');
+        if(scope.model > 210) {
+        	scope.model = "210.0";
+        }
+      };
+      scope.update = function(value) {
+      	scope.model = scope.model.toString().replace(/[^0-9.]/g,'');
+      	scope.model = ((1.0 * scope.model) + (1.0 * value)).toFixed(1);
+      	if(scope.model < 0) {
+      		scope.model = "0.0";
+      	}
+      	if(scope.model > 210) {
+      		scope.model = "210.0";
+      	}
+      };
+      scope.cancel = function() {
+        scope.editing = false;
+        scope.model = previousValue;
+      };
+    },
+    templateUrl: 'partials/inlineTempEdit.html'
+  };
+});

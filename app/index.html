@@ -6,9 +6,10 @@
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css">
   <script src="../bower_components/angular/angular.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/directives.js"></script>
-  <script src="js/app.js"></script>
 </head>
 <body ng-controller="beerTestCtrl">
 
@@ -20,9 +21,14 @@
     </div>
   </div>
 
+  <input class="vVertical" type="range" ng-repeat="vessel in appData.setup.vessels" min="0" max="{{vessel.volume.maxVolume}}" step=".25" ng-show="vessel.name=='HLT'" ng-model="vessel.volume.targetVolume" style="top:{{vessel.volume.liquidLevel.position.top}}px;left:{{vessel.volume.liquidLevel.position.left}}px;" ng-change="updateTargetVolume(vessel)"/>
   <img class="equipment pumps" ng-repeat="pump in appData.setup.pumps" ng-src="{{equipmentImg('pump',pump)}}" style="top:{{pump.position.top}}px;left:{{pump.position.left}}px;" ng-click="toggleEquipment('pump',pump);" />
   <img class="equipment heaters" ng-repeat="heater in appData.setup.heaters" ng-src="{{equipmentImg('heater',heater)}}" style="top:{{heater.position.top}}px;left:{{heater.position.left}}px;" ng-click="toggleEquipment('heater',heater);" />
   <img class="equipment valves" ng-repeat="valve in appData.setup.valves" ng-src="{{equipmentImg('valve',valve)}}" ng-show="!valve.manual" style="top:{{valve.position.top}}px;left:{{valve.position.left}}px;" ng-click="toggleEquipment('valve',valve);" />
+  <div ng-repeat="vessel in appData.setup.vessels" class="tempRange" style="top:{{vessel.temp.position.top}}px;left:{{vessel.temp.position.left}}px;">
+    <span>{{vessel.temp.current}}&deg;</span>
+    <div ng-inline-temp="vessel.temp.target">{{vessel.temp.target}}&deg;</div>
+  </div>
 
 </body>
 </html>

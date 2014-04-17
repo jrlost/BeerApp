@@ -1,0 +1,2 @@
+<span ng-hide="editing" ng-click="edit()">{{model}}&deg;</span>
+<input ng-show="editing" ng-blur="save()" ng-esc="cancel()" ng-enter="save()" ng-adjustup="update(0.1)" ng-adjustdown="update(-0.1)" ng-model="model" />

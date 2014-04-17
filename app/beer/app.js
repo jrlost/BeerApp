@@ -27,7 +27,7 @@
                         "heaters": [
                             1
                         ],
-                        "plumping": [
+                        "plumbing": [
                             1,
                             2,
                             3,
@@ -60,7 +60,7 @@
                         "heaters": [
                             
                         ],
-                        "plumping": [
+                        "plumbing": [
                             4,
                             5,
                             6,
@@ -86,11 +86,24 @@
                     "top": 1,
                     "left": 1
                 },
+                "temp": {
+                    "current": 125.3,
+                    "target": 164.7,
+                    "position": {
+                        "left": 85,
+                        "top": 28
+                    }
+                },
                 "volume": {
-                    "currentVolume": 8.8,
+                    "currentVolume": 10,
+                    "targetVolume": 14.25,
                     "maxVolume": 20,
                     "deadSpace": 0,
                     "liquidLevel": {
+                        "position": {
+                            "top": 133,
+                            "left": 10
+                        },
                         "max": [
                             {
                                 "x": 4,
@@ -123,6 +136,14 @@
                     "left": 310,
                     "top": 1
                 },
+                "temp": {
+                    "current": 125.3,
+                    "target": 164.7,
+                    "position": {
+                        "left": 385,
+                        "top": 28
+                    }
+                },
                 "volume": {
                     "currentVolume": 0,
                     "maxVolume": 15,
@@ -140,6 +161,14 @@
                 "position": {
                     "left": 575,
                     "top": 1
+                },
+                "temp": {
+                    "current": 125.3,
+                    "target": 164.7,
+                    "position": {
+                        "left": 650,
+                        "top": 28
+                    }
                 },
                 "volume": {
                     "currentVolume": 0,
@@ -211,6 +240,9 @@
                 "position": {
                     "left": 155,
                     "top": 303
+                },
+                "plumbing": {
+                    "open": [3]
                 }
             },
             {
@@ -229,6 +261,10 @@
                 "position": {
                     "left": 91,
                     "top": 273
+                },
+                "plumbing": {
+                    "left": [3,4],
+                    "right": [4,5]
                 }
             },
             {
@@ -247,6 +283,15 @@
                 "position": {
                     "left": 332,
                     "top": 287
+                },
+                "plumbing": {
+                    "left": [6,7],
+                    "right": [6,7,8],
+                    "dependencies": {
+                        "left": [
+                            {"id": 2, "direction": "right"}
+                        ]
+                    }
                 }
             },
             {
@@ -263,11 +308,26 @@
                 "position": {
                     "left": 446,
                     "top": 256
+                },
+                "plumbing": {
+                    "open": [8,9,10,11]
                 }
             },
             {
                 "id": 5,
                 "name": "valve 5",
+                "type": 2,
+                "img": "img/valves/manual-valve-2-way.png",
+                "desc": "control output from bk",
+                "manual": true,
+                "position": {
+                    "left": 646,
+                    "top": 245
+                }
+            },
+            {
+                "id": 6,
+                "name": "valve 6",
                 "type": 2,
                 "img": "img/valves/manual-valve-2-way.png",
                 "desc": "control output from system",
@@ -278,8 +338,8 @@
                 }
             },
             {
-                "id": 6,
-                "name": "valve 6",
+                "id": 7,
+                "name": "valve 7",
                 "type": 2,
                 "img": "img/valves/manual-valve-2-way.png",
                 "desc": "control output from system/HLT",
@@ -389,7 +449,6 @@
                 "name": "",
                 "desc": "",
                 "label": "",
-                "active": true,
                 "points": [
                     {
                         "x": 141,
@@ -414,7 +473,6 @@
                 "name": "",
                 "desc": "",
                 "label": "",
-                "active": true,
                 "points": [
                     {
                         "x": 95,
@@ -622,6 +680,22 @@
                     },
                     {
                         "x": 660,
+                        "y": 245
+                    }
+                ]
+            },
+            {
+                "id": 12,
+                "name": "Wort Out - BK",
+                "desc": "Wort output from BK",
+                "label": "",
+                "points": [
+                    {
+                        "x": 660,
+                        "y": 270
+                    },
+                    {
+                        "x": 660,
                         "y": 289
                     },
                     {
@@ -631,7 +705,7 @@
                 ]
             },
             {
-                "id": 12,
+                "id": 13,
                 "name": "Wort Out - Cooler",
                 "desc": "Output from cooler",
                 "label": "Wrt Out",
